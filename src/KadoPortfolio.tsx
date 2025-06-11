@@ -172,6 +172,20 @@ const KadoPortfolio: React.FC = () => {
       demo: "https://kado-ber.de",
     },
     {
+      title: "gallery.kado-ber.de",
+      description:
+        "Wo Algorithmen träumen lernen – meine digitale Visitenkarte.",
+      tech: [
+        "React",
+        "TailwindCSS",
+        "TypeScript",
+        "Python",
+        "Stable Diffusion",
+      ],
+      github: "https://github.com/chefkoch0312/gallery.kado-ber.de",
+      demo: "http://gallery.kado-ber.de",
+    },
+    {
       title: "kundari",
       description: "Leichtgewichtiges CRM für klassische Webspace-Umgebungen.",
       tech: ["React", "Bootstrap", "PHP"],
@@ -200,6 +214,14 @@ const KadoPortfolio: React.FC = () => {
       github: "https://github.com/chefkoch0312/weather_dashboard",
       demo: "#",
     },
+    {
+      title: "codekeeper",
+      description:
+        "Ein Python-basiertes Entwicklungs-, Sicherungs- und Deployment Tool zum Verwalten von Projekt-Workflows zwischen Entwicklungs-, Sicherungs- und Laufzeitumgebungen.",
+      tech: ["Python", "Tkinter", "SQLite"],
+      github: "https://github.com/chefkoch0312/codekeeper",
+      demo: "#",
+    },
   ];
 
   return (
@@ -216,17 +238,17 @@ const KadoPortfolio: React.FC = () => {
         className="min-h-screen flex items-center justify-center px-4 pt-20"
       >
         <div className="text-center max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text text-transparent">
-            Digitale Lösungen mit Klarheit & Charakter
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text text-transparent">
+            Digitale Klarheit mit Substanz.
           </h1>
-          <p className="text-xl md:text-2xl text-slate-300 mb-8">
-            Ich bin Kai – Entwickler mit Haltung, Visionär mit Bodenhaftung und
-            Architekt für funktionale Ideen.
+          <p className="text-lg md:text-xl text-slate-300 mb-4">
+            Full Stack Entwicklung & KI-Beratung mit Fokus auf Funktion,
+            Struktur und Wirkung.
           </p>
-          <p className="text-lg text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-            Ich baue Systeme, die funktionieren – mit sauberem Code, ehrlichem
-            Anspruch und einer Prise Intuition. Willkommen in meinem digitalen
-            Raum.
+          <p className="text-base text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed">
+            Ich entwickle Weblösungen, Datenstrukturen und maschinelles Lernen
+            mit Blick für das Wesentliche – modular, verständlich und
+            langfristig tragfähig.
           </p>
           <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-6 mb-16">
             <div className="flex items-center gap-2 bg-slate-800/50 px-6 py-3 rounded-full border border-purple-500/20">
@@ -245,8 +267,11 @@ const KadoPortfolio: React.FC = () => {
               </span>
             </div>
           </div>
-          <div className="animate-bounce mt-4">
+          {/* <div className="animate-bounce mt-4">
             <ChevronDown className="w-8 h-8 text-purple-400 mx-auto" />
+          </div> */}
+          <div className="animate-scroll-glow mt-4">
+            <ChevronDown className="w-8 h-8 text-purple-400 mx-auto drop-shadow-lg" />
           </div>
         </div>
       </section>
@@ -336,6 +361,36 @@ const KadoPortfolio: React.FC = () => {
               GitHub besuchen
             </a>
           </div>
+        </div>
+      </section>
+
+      {/* Neue Galerie-Sektion */}
+      <section id="gallery" className="py-20 px-4 bg-slate-900/60">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            Wo Algorithmen träumen lernen
+          </h2>
+          <p className="text-base md:text-lg text-slate-300 mb-8">
+            Eine kuratierte Galerie KI-generierter Bilder – erschaffen mit{" "}
+            <strong>Stable Diffusion XL</strong>.<br />
+            Technisch präzise, ästhetisch feinfühlig. Jedes Bild ein stiller
+            Dialog zwischen Idee und Algorithmus.
+          </p>
+          <div className="mb-8">
+            <img
+              src="/assets/gallery-preview.jpg"
+              alt="Vorschau Galerie"
+              className="w-full rounded-2xl shadow-lg border border-slate-800"
+            />
+          </div>
+          <a
+            href="http://gallery.kado-ber.de"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl transition"
+          >
+            Galerie ansehen
+          </a>
         </div>
       </section>
 
