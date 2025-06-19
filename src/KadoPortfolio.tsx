@@ -204,7 +204,7 @@ const KadoPortfolio: React.FC = () => {
       description: "Conway's Game of Life – als visuelle Spielerei umgesetzt.",
       tech: ["HTML", "CSS", "JavaScript"],
       github: "https://github.com/chefkoch0312/cgol",
-      demo: "#",
+      demo: "/cgol/index.html",
     },
     {
       title: "weather_dashboard",
@@ -267,9 +267,6 @@ const KadoPortfolio: React.FC = () => {
               </span>
             </div>
           </div>
-          {/* <div className="animate-bounce mt-4">
-            <ChevronDown className="w-8 h-8 text-purple-400 mx-auto" />
-          </div> */}
           <div className="animate-scroll-glow mt-4">
             <ChevronDown className="w-8 h-8 text-purple-400 mx-auto drop-shadow-lg" />
           </div>
@@ -330,6 +327,16 @@ const KadoPortfolio: React.FC = () => {
                 </span>
                 <br />
                 Windows, Debian Linux, FreeBSD
+              </div>
+              <div>
+                <span className="font-semibold text-white">
+                  Machine Learning & AI:
+                </span>
+                <br />
+                Python (pandas, scikit-learn, NumPy, matplotlib, seaborn)
+                <br />
+                Jupyter, ComfyUI, Diffusers, Hugging Face, Prompt Engineering,
+                SDXL
               </div>
             </div>
           </div>
@@ -505,7 +512,7 @@ const KadoPortfolio: React.FC = () => {
           <br className="sm:hidden" />
           Telefon: +49 176 60873086 · E-Mail: impressum@kado-ber.de
           <br />
-          Diese Seite ist ein privates, nicht-kommerzielles Angebot gemäß § 5
+          Diese Seite ist ein privates, nicht-kommerzielles Angebot gemäß § 5
           TMG.
         </div>
       </footer>

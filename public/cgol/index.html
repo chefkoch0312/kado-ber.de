@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conway's Game of Life</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Conway's Game of Life</h1>
+
+      <div class="controls">
+        <button id="playBtn">▶ Start</button>
+        <button id="pauseBtn">⏸ Pause</button>
+        <button id="clearBtn">🗑 Löschen</button>
+        <button id="randomBtn">🎲 Zufall</button>
+
+        <div class="speed-control">
+          <span>Geschwindigkeit:</span>
+          <input type="range" id="speedSlider" min="1" max="20" value="5" />
+          <span id="speedValue">5</span>
+        </div>
+      </div>
+
+      <div class="grid-container">
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Generation</div>
+          <div class="stat-value" id="generation">0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Lebende Zellen</div>
+          <div class="stat-value" id="population">0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">FPS</div>
+          <div class="stat-value" id="fps">0</div>
+        </div>
+      </div>
+
+      <div class="patterns">
+        <h3>Vordefinierte Muster</h3>
+        <div class="pattern-buttons">
+          <button class="pattern-btn" data-pattern="glider">Gleiter</button>
+          <button class="pattern-btn" data-pattern="gosperGun">
+            Gosper-Kanone
+          </button>
+          <button class="pattern-btn" data-pattern="pulsar">Pulsar</button>
+          <button class="pattern-btn" data-pattern="beacon">Leuchtfeuer</button>
+          <button class="pattern-btn" data-pattern="toad">Kröte</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="gameoflife.js"></script>
+  </body>
+</html>
