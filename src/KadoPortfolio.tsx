@@ -319,7 +319,7 @@ const KadoPortfolio: React.FC = () => {
               <div>
                 <span className="font-semibold text-white">Tools & IDEs:</span>
                 <br />
-                VSCode, Git, XAMPP, NetBeans, Eclipse
+                VSCode, Git, XAMPP, Docker, NetBeans, Eclipse, (Neo)Vim
               </div>
               <div>
                 <span className="font-semibold text-white">
