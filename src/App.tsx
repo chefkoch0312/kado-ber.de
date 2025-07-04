@@ -1,12 +1,12 @@
 // import { useState } from "react";
 // import "./App.css";
-import KadoPortfolio from "./KadoPortfolio";
+import KadoContainer from "./KadoContainer";
 
 function App() {
   return (
     <>
       <div>
-        <KadoPortfolio />
+        <KadoContainer />
       </div>
     </>
   );
