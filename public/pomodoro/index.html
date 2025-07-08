@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pomodoro Timer</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍅</text></svg>"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Pomodoro Timer</h1>
+      <div id="sessionLabel">Work Session • 1</div>
+      <div id="timer">25:00</div>
+      <div id="progressContainer">
+        <div id="progressBar"></div>
+      </div>
+      <div id="controls">
+        <button id="startBtn">Start</button>
+        <button id="pauseBtn" disabled>Pause</button>
+        <button id="resetBtn">Reset</button>
+      </div>
+      <div id="settings">
+        <label for="workInput">Arbeitszeit (min):</label>
+        <input type="number" id="workInput" value="25" min="1" />
+
+        <label for="shortInput">Pause (min):</label>
+        <input type="number" id="shortInput" value="5" min="1" />
+
+        <label for="longInput">Lange Pause (min):</label>
+        <input type="number" id="longInput" value="15" min="1" />
+        <button id="resetSettingsBtn">Reset to defaults</button>
+      </div>
+      <div id="stats">
+        <p>Completed Sessions: <span id="completedSessions">0</span></p>
+        <p>Total Time: <span id="totalTime">0h 0m</span></p>
+      </div>
+      <div id="notification" class="hidden">⏰ Time's up!</div>
+      <div id="themeToggle">
+        <label>
+          <input type="checkbox" id="darkModeSwitch" />
+          Dark Mode
+        </label>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

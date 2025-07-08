@@ -74,4 +74,12 @@ export const projects: Project[] = [
     github: "https://github.com/chefkoch0312/codekeeper",
     demo: "#",
   },
+  {
+    title: "pomodoro-timer",
+    description:
+      "Ein minimalistischer Pomodoro-Timer, erstellt mit Standard-HTML, CSS und JavaScript – ohne Frameworks und ohne Abhängigkeiten.",
+    tech: ["HTML", "JavaScript", "CSS"],
+    github: "https://github.com/chefkoch0312/pomodoro-timer",
+    demo: "/pomodoro/index.html",
+  },
 ];
