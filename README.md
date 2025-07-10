@@ -22,10 +22,15 @@ Diese Website stellt mich und meine Projekte vor – mit Fokus auf:
 
 ---
 
+## **🌐 Website**
+🔗 [kado-ber.de](https://kado-ber.de)
+
+---
+
 ## **👤 Autor**
 
 **Kai ([@chefkoch0312](https://github.com/chefkoch0312))**
-[https://kado-ber.de](https://kado-ber.de)
+[kado-ber.de](https://kado-ber.de)
 
 ---
 
