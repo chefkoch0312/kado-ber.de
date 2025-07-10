@@ -26,3 +26,10 @@ Diese Website stellt mich und meine Projekte vor – mit Fokus auf:
 
 **Kai ([@chefkoch0312](https://github.com/chefkoch0312))**
 [https://kado-ber.de](https://kado-ber.de)
+
+---
+
+## **🧾 Lizenz**
+
+© 2025 Kai Dombrowski – Alle Rechte vorbehalten
+Dieses Repository dient ausschließlich der persönlichen Referenz und öffentlichen Darstellung. Der Code kann eingesehen werden, eine Weiterverwendung bedarf der ausdrücklichen Genehmigung.
