@@ -8,16 +8,16 @@ const HeroSection: React.FC = () => {
     >
       <div className="text-center max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text text-transparent">
-          Digitale Klarheit mit Substanz.
+          Digitale Lösungen mit Klarheit und Substanz.
         </h1>
         <p className="text-lg md:text-xl text-slate-300 mb-4">
-          Full Stack Entwicklung & KI-Beratung mit Fokus auf Funktion, Struktur
-          und Wirkung.
+          Full Stack Entwicklung & KI-Beratung – funktional, strukturiert und
+          nachhaltig wirksam.
         </p>
         <p className="text-base text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed">
           Ich entwickle Weblösungen, Datenstrukturen und maschinelles Lernen mit
-          Blick für das Wesentliche – modular, verständlich und langfristig
-          tragfähig.
+          Blick für das Wesentliche: modular, verständlich und langfristig
+          tragfähig. Technologie, die funktioniert, ohne kompliziert zu sein.
         </p>
         <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-6 mb-16">
           <div className="flex items-center gap-2 bg-slate-800/50 px-6 py-3 rounded-full border border-purple-500/20">

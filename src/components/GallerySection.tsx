@@ -5,10 +5,11 @@ const GallerySection: React.FC = () => (
         Wo Algorithmen träumen lernen
       </h2>
       <p className="text-base md:text-lg text-slate-300 mb-8">
-        Eine kuratierte Galerie KI-generierter Bilder – erschaffen mit{" "}
+        Eine kuratierte Galerie KI-generierter Bilder. Erschaffen mit{" "}
         <strong>Stable Diffusion XL</strong>.<br />
-        Technisch präzise, ästhetisch feinfühlig. Jedes Bild ein stiller Dialog
-        zwischen Idee und Algorithmus.
+        Technisch präzise, ästhetisch feinfühlig. Jedes Bild entsteht im stillen
+        Dialog zwischen menschlicher Idee und algorithmischer Interpretation.
+        Hier verschmelzen Kunst und Technologie zu etwas Neuem.
       </p>
       <div className="mb-8">
         <img

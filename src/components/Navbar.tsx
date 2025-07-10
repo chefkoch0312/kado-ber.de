@@ -10,7 +10,7 @@ const Navigation: React.FC<NavigationProps> = ({ onSectionClick }) => {
 
   const navItems = [
     { id: "home", label: "Home" },
-    { id: "about", label: "Über mich" },
+    { id: "about", label: "Profil" },
     { id: "projects", label: "Projekte" },
     { id: "gallery", label: "Galerie" },
     { id: "inspiration", label: "Inspiration" },
