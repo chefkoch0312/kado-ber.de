@@ -62,9 +62,9 @@ const AboutSection: React.FC = () => (
               Machine Learning & AI:
             </span>
             <br />
-            Python (pandas, scikit-learn, NumPy, matplotlib, seaborn)
+            Python (pandas, scikit-learn, NumPy, matplotlib, Jupyter),
             <br />
-            Jupyter, ComfyUI, Diffusers, Hugging Face, Prompt Engineering, SDXL
+            ComfyUI, Diffusers, Hugging Face, Prompt Engineering, SDXL
           </div>
         </div>
       </div>

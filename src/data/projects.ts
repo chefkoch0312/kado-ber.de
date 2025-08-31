@@ -26,8 +26,8 @@ export const projects: Project[] = [
   {
     title: "ML: Iris-Datensatz",
     description:
-      "Iris-Datensatz als JS-Basierte Variante",
-    tech: ["Javascript", "tf.js (Tensorflow)"],
+      "Iris-Datensatz (1. Python-Script, 2. Jupyter NB, 3. GUI (passend zum Python-Script), 4 als JS-Basierte Variante",
+    tech: ["Python", "Qt5", "Javascript", "tf.js (Tensorflow)"],
     github: "https://github.com/chefkoch0312/ml_iris_datensatz",
     demo: "https://kado-ber.de/ml_iris_datensatz/js/index.html",
   },
