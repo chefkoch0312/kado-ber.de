@@ -25,3 +25,6 @@ dist-ssr
 
 # Kein Einchecken von PDF-Dateien
 *.pdf
+
+# ...ausschließen
+public/kddocs/

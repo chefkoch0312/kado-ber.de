@@ -50,7 +50,7 @@ const AboutSection: React.FC = () => (
           <div>
             <span className="font-semibold text-white">Tools & IDEs:</span>
             <br />
-            VSCode, Git, XAMPP, Docker, NetBeans, Eclipse, (Neo)Vim
+            VSCode, Git, TMUX, XAMPP, Docker, NetBeans, Eclipse, (Neo)Vim, Make/CMake, RegEx, Qt6
           </div>
           <div>
             <span className="font-semibold text-white">Betriebssysteme:</span>

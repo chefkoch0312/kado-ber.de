@@ -24,6 +24,14 @@ export const projects: Project[] = [
     demo: "http://gallery.kado-ber.de",
   },
   {
+    title: "ML: Iris-Datensatz",
+    description:
+      "Iris-Datensatz als JS-Basierte Variante",
+    tech: ["Javascript", "tf.js (Tensorflow)"],
+    github: "https://github.com/chefkoch0312/ml_iris_datensatz",
+    demo: "https://kado-ber.de/ml_iris_datensatz/js/index.html",
+  },
+  {
     title: "kundari",
     description: "Leichtgewichtiges CRM für klassische Webspace-Umgebungen.",
     tech: ["React", "Bootstrap", "PHP"],
