@@ -205,16 +205,65 @@
     </div>
 
     <script>
-        (async () => {
+        const isFirefox = navigator.userAgent.toLowerCase().includes('firefox');
+
+        async function initializeTensorFlow() {
             const logEl = document.getElementById('log');
+            const log = (s) => { logEl.textContent += (logEl.textContent ? '\n' : '') + s; };
+
+            try {
+                await tf.ready();
+
+                if (isFirefox) {
+                    log('Firefox erkannt - verwende CPU-Backend für Stabilität...');
+                    await tf.setBackend('cpu');
+                    await tf.ready();
+                    log(`Backend: ${tf.getBackend()}`);
+                } else {
+                    log(`Browser: ${navigator.userAgent.split(' ').pop()}`);
+                    log(`Initial Backend: ${tf.getBackend()}`);
+
+                    if (tf.getBackend() === 'webgl') {
+                        try {
+                            const test = tf.tensor1d([1, 2, 3]);
+                            const result = test.square();
+                            await result.data();
+                            result.dispose();
+                            test.dispose();
+                            log('WebGL funktioniert');
+                        } catch (e) {
+                            log('WebGL-Problem erkannt, wechsle zu CPU...');
+                            await tf.setBackend('cpu');
+                            await tf.ready();
+                            log(`Neues Backend: ${tf.getBackend()}`);
+                        }
+                    }
+                }
+
+                await runMLDemo(log);
+
+            } catch (error) {
+                log('Kritischer Fehler beim TensorFlow.js Setup: ' + error.message);
+                console.error('TensorFlow.js Fehler:', error);
+
+                try {
+                    log('Versuche Notfall-CPU-Backend...');
+                    await tf.setBackend('cpu');
+                    await tf.ready();
+                    await runMLDemo(log);
+                } catch (fallbackError) {
+                    log('Auch CPU-Backend fehlgeschlagen: ' + fallbackError.message);
+                }
+            }
+        }
+
+        async function runMLDemo(log) {
             const predictBtn = document.getElementById('predictBtn');
             const predOut = document.getElementById('predOut');
             const inputs = ['sl', 'sw', 'pl', 'pw'].map(id => document.getElementById(id));
 
             const LABELS = ['setosa', 'versicolor', 'virginica'];
             const CSV_URL = 'https://kado-ber.de/ml_iris_datensatz/js/iris.csv';
-
-            const log = (s) => { logEl.textContent += (logEl.textContent ? '\n' : '') + s; };
 
             const csvToArrays = (csvText) => {
                 const lines = csvText.trim().split(/\r?\n/);
@@ -230,99 +279,144 @@
             }
             const labelToIndex = s => LABELS.indexOf(s);
 
-            try {
-                // 1) Daten laden
-                const res = await fetch(CSV_URL);
-                const txt = await res.text();
-                const { X, y } = csvToArrays(txt);
+            // 1) Daten laden
+            log('Lade Iris-Datensatz...');
+            const res = await fetch(CSV_URL);
+            const txt = await res.text();
+            const { X, y } = csvToArrays(txt);
+            log(`${X.length} Datenpunkte geladen`);
 
-                // 2) Shuffle + Train/Test Split
-                const idx = X.map((_, i) => i);
-                for (let i = idx.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [idx[i], idx[j]] = [idx[j], idx[i]];
-                }
-                const Xs = idx.map(i => X[i]);
-                const ys = idx.map(i => labelToIndex(y[i]));
-                const nTrain = Math.floor(0.8 * Xs.length);
+            // 2) Shuffle + Train/Test Split
+            const idx = X.map((_, i) => i);
+            for (let i = idx.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [idx[i], idx[j]] = [idx[j], idx[i]];
+            }
+            const Xs = idx.map(i => X[i]);
+            const ys = idx.map(i => labelToIndex(y[i]));
+            const nTrain = Math.floor(0.8 * Xs.length);
 
-                const Xtrain = Xs.slice(0, nTrain);
-                const ytrain = ys.slice(0, nTrain);
-                const Xtest = Xs.slice(nTrain);
-                const ytest = ys.slice(nTrain);
+            const Xtrain = Xs.slice(0, nTrain);
+            const ytrain = ys.slice(0, nTrain);
+            const Xtest = Xs.slice(nTrain);
+            const ytest = ys.slice(nTrain);
 
-                // 3) Normalisieren (float32!)
-                const xTrainTf = tf.tensor2d(Xtrain, [Xtrain.length, 4], 'float32');
-                const xTestTf = tf.tensor2d(Xtest, [Xtest.length, 4], 'float32');
+            log(`Training: ${Xtrain.length}, Test: ${Xtest.length}`);
 
-                const mean = xTrainTf.mean(0);
-                const std = xTrainTf.sub(mean).square().mean(0).sqrt();
+            // 3) Normalisieren
+            const xTrainTf = tf.tensor2d(Xtrain);
+            const xTestTf = tf.tensor2d(Xtest);
 
-                const norm = (t2d) => t2d.sub(mean).div(std);
+            const mean = xTrainTf.mean(0);
+            const std = xTrainTf.sub(mean).square().mean(0).sqrt().add(tf.scalar(1e-8));
 
-                const xTr = norm(xTrainTf);
-                const yTr = tf.tensor1d(ytrain, 'float32');
-                const xTe = norm(xTestTf);
-                const yTe = tf.tensor1d(ytest, 'float32');
+            const xTr = xTrainTf.sub(mean).div(std);
+            const yTr = tf.tensor1d(ytrain);
+            const xTe = xTestTf.sub(mean).div(std);
+            const yTe = tf.tensor1d(ytest);
 
-                // 4) Modell
-                const model = tf.sequential();
-                model.add(tf.layers.dense({ units: 16, activation: 'relu', inputShape: [4] }));
-                model.add(tf.layers.dense({ units: 16, activation: 'relu' }));
-                model.add(tf.layers.dense({ units: 3, activation: 'softmax' }));
-                model.compile({
-                    optimizer: tf.train.adam(0.02),
-                    loss: 'sparseCategoricalCrossentropy',
-                    metrics: ['accuracy']
-                });
+            // 4) Einfaches, stabiles Modell
+            const model = tf.sequential();
+            model.add(tf.layers.dense({
+                units: 12,
+                activation: 'relu',
+                inputShape: [4],
+                kernelInitializer: 'glorotUniform'
+            }));
+            model.add(tf.layers.dense({
+                units: 8,
+                activation: 'relu',
+                kernelInitializer: 'glorotUniform'
+            }));
+            model.add(tf.layers.dense({
+                units: 3,
+                activation: 'softmax',
+                kernelInitializer: 'glorotUniform'
+            }));
 
-                // 5) Training
-                log('Training startet …');
-                await model.fit(xTr, yTr, {
-                    epochs: 120,
-                    batchSize: 16,
-                    shuffle: true,
-                    validationSplit: 0.15,
-                    callbacks: {
-                        onEpochEnd: (epoch, logs) => {
-                            if (epoch % 10 === 0) {
-                                log(`Epoch ${String(epoch).padStart(3)} — loss ${logs.loss.toFixed(3)} — acc ${logs.acc.toFixed(3)}`);
-                            }
+            model.compile({
+                optimizer: tf.train.adam(0.008),
+                loss: 'sparseCategoricalCrossentropy',
+                metrics: ['accuracy']
+            });
+
+            // 5) Training mit kleinen Batches
+            log('Training startet...');
+            const startTime = Date.now();
+
+            await model.fit(xTr, yTr, {
+                epochs: 100,
+                batchSize: 8,
+                shuffle: true,
+                validationSplit: 0.2,
+                verbose: 0,
+                callbacks: {
+                    onEpochEnd: (epoch, logs) => {
+                        if (epoch % 15 === 0 || epoch === 99) {
+                            const lossStr = logs.loss ? logs.loss.toFixed(3) : 'N/A';
+                            const accStr = logs.acc ? logs.acc.toFixed(3) : 'N/A';
+                            log(`Epoch ${String(epoch + 1).padStart(3)} — loss ${lossStr} — acc ${accStr}`);
                         }
                     }
+                }
+            });
+
+            const trainTime = ((Date.now() - startTime) / 1000).toFixed(1);
+            log(`Training abgeschlossen (${trainTime}s)`);
+
+            // 6) Test-Evaluierung
+            const evalResult = model.evaluate(xTe, yTe, { batchSize: 8, verbose: 0 });
+            const testLoss = await evalResult[0].data();
+            const testAcc = await evalResult[1].data();
+
+            log(`Test — loss ${testLoss[0].toFixed(3)} — accuracy ${(testAcc[0] * 100).toFixed(1)}%`);
+
+            // Cleanup evaluation tensors
+            evalResult.forEach(t => t.dispose());
+
+            // 7) Vorhersage aktivieren
+            predictBtn.disabled = false;
+            predictBtn.addEventListener('click', () => {
+                const vals = inputs.map(el => parseFloat(el.value));
+                if (vals.some(v => Number.isNaN(v))) {
+                    predOut.innerHTML = '<span style="color: #dc3545;">Bitte alle Werte eingeben</span>';
+                    return;
+                }
+
+                const prediction = tf.tidy(() => {
+                    const x = tf.tensor2d([vals]).sub(mean).div(std);
+                    const probs = model.predict(x);
+                    return probs.dataSync();
                 });
 
-                // 6) Evaluierung
-                const evalRes = model.evaluate(xTe, yTe, { batchSize: 16, verbose: 0 });
-                const [testLoss, testAcc] = await Promise.all(evalRes.map(t => t.data()));
-                log(`\nTest: loss ${testLoss[0].toFixed(3)} — accuracy ${(testAcc[0] * 100).toFixed(1)}%`);
+                const best = prediction.reduce((bi, p, i) => (p > prediction[bi] ? i : bi), 0);
+                const pretty = LABELS.map((lab, i) =>
+                    `${lab}<span class="pill">${(prediction[i] * 100).toFixed(1)}%</span>`
+                ).join('  ');
+                predOut.innerHTML = `→ <strong>${LABELS[best]}</strong>  |  ${pretty}`;
+            });
 
-                // 7) Vorhersage
-                predictBtn.disabled = false;
-                predictBtn.addEventListener('click', () => {
-                    const vals = inputs.map(el => parseFloat(el.value));
-                    if (vals.some(v => Number.isNaN(v))) return;
-                    tf.tidy(() => {
-                        const x = tf.tensor2d([vals], [1, 4], 'float32').sub(mean).div(std);
-                        const probs = model.predict(x).dataSync();
-                        const best = probs.reduce((bi, p, i) => (p > probs[bi] ? i : bi), 0);
-                        const pretty = LABELS.map((lab, i) => `${lab}<span class="pill">${(probs[i] * 100).toFixed(1)}%</span>`).join('  ');
-                        predOut.innerHTML = `→ ${LABELS[best]}  |  ${pretty}`;
+            const cleanup = () => {
+                try {
+                    [xTrainTf, xTestTf, xTr, yTr, xTe, yTe, mean, std].forEach(t => {
+                        if (t && !t.isDisposed) t.dispose();
                     });
-                });
+                    if (model) model.dispose();
+                } catch (e) {
+                    console.warn('Cleanup warning:', e);
+                }
+            };
 
-                // cleanup
-                window.addEventListener('beforeunload', () => {
-                    xTr.dispose(); yTr.dispose(); xTe.dispose(); yTe.dispose();
-                    model.dispose(); mean.dispose(); std.dispose();
-                });
+            window.addEventListener('beforeunload', cleanup);
+            log('Fertig! Vorhersage verfügbar.');
+        }
 
-                log('Bereit. Werte eingeben und „Vorhersagen" klicken.');
-            } catch (e) {
-                log('Fehler beim Laden/Trainieren: ' + e.message);
-                console.error(e);
-            }
-        })();
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeTensorFlow().catch(error => {
+                console.error('Startup error:', error);
+                document.getElementById('log').textContent = 'Fehler beim Start: ' + error.message;
+            });
+        });
     </script>
 </body>
 

@@ -35,13 +35,13 @@ const KadoContainer: React.FC = () => {
         <ProjectsSection />
         <GallerySection />
         <InspirationSection />
-        <ContactSection />
+        {/* <ContactSection /> */}
         <Footer />
-        <CookieBanner
+        {/* <CookieBanner
           isVisible={showCookieBanner}
           onAccept={handleCookieAccept}
           onDecline={handleCookieDecline}
-        />
+        /> */}
       </main>
     </>
   );

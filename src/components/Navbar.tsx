@@ -14,7 +14,7 @@ const Navigation: React.FC<NavigationProps> = ({ onSectionClick }) => {
     { id: "projects", label: "Projekte" },
     { id: "gallery", label: "Galerie" },
     { id: "inspiration", label: "Inspiration" },
-    { id: "contact", label: "Kontakt" },
+    // { id: "contact", label: "Kontakt" },
   ];
 
   const handleClick = (id: string) => {
