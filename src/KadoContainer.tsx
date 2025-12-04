@@ -1,13 +1,13 @@
-import { useState } from "react";
+// import { useState } from "react";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import AboutSection from "./components/AboutSection";
 import ProjectsSection from "./components/ProjectsSection";
 import GallerySection from "./components/GallerySection";
 import InspirationSection from "./components/InspirationSection";
-import ContactSection from "./components/ContactSection";
+// import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
-import CookieBanner from "./components/CookieBanner";
+// import CookieBanner from "./components/CookieBanner";
 
 const KadoContainer: React.FC = () => {
   const scrollToSection = (id: string) => {
@@ -17,14 +17,14 @@ const KadoContainer: React.FC = () => {
     }
   };
 
-  const [showCookieBanner, setShowCookieBanner] = useState<boolean>(true);
-  const handleCookieAccept = (): void => {
-    setShowCookieBanner(false);
-  };
+  // const [showCookieBanner, setShowCookieBanner] = useState<boolean>(true);
+  // const handleCookieAccept = (): void => {
+  //   setShowCookieBanner(false);
+  // };
 
-  const handleCookieDecline = (): void => {
-    setShowCookieBanner(false);
-  };
+  // const handleCookieDecline = (): void => {
+  //   setShowCookieBanner(false);
+  // };
 
   return (
     <>

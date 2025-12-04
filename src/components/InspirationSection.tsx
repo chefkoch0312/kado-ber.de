@@ -43,7 +43,7 @@ const InspirationSection: React.FC = () => (
             Zertifikate (Auswahl)
           </h3>
           <ul className="text-left text-slate-300 space-y-3 list-disc list-inside">
-            <li>React & TypeScript – alfatraining</li>
+            <li>React – alfatraining</li>
             <li>JavaScript & Webentwicklung – alfatraining</li>
             <li>PHP & Datenbanken – alfatraining</li>
             <li>Machine Learning & Python – alfatraining</li>

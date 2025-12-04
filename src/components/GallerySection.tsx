@@ -15,7 +15,10 @@ const GallerySection: React.FC = () => (
         <img
           src="/assets/gallery-preview.jpg"
           alt="Vorschau Galerie"
-          className="w-full rounded-2xl shadow-lg border border-slate-800"
+          width="832"
+          height="1216"
+          className="w-full h-auto rounded-2xl shadow-lg border border-slate-800"
+          loading="lazy"
         />
       </div>
       <a

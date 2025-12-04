@@ -9,7 +9,6 @@ const Navigation: React.FC<NavigationProps> = ({ onSectionClick }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { id: "home", label: "Home" },
     { id: "about", label: "Profil" },
     { id: "projects", label: "Projekte" },
     { id: "gallery", label: "Galerie" },
@@ -26,9 +25,12 @@ const Navigation: React.FC<NavigationProps> = ({ onSectionClick }) => {
     <nav className="fixed top-0 left-0 right-0 bg-slate-900/90 backdrop-blur-md border-b border-purple-500/20 z-40">
       <div className="max-w-6xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <div className="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <button
+            onClick={() => onSectionClick("home")}
+            className="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent hover:text-purple-300 transition-colors"
+          >
             Kai Dombrowski
-          </div>
+          </button>
 
           {/* Desktop-Menü */}
           <div className="hidden md:flex items-center space-x-8">
