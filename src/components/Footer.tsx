@@ -3,11 +3,10 @@ import React from "react";
 const Footer: React.FC = () => {
   return (
     <footer
-      className="border-t border-slate-800 py-8 px-4 text-center text-sm text-white"
+      className="bg-black py-8 px-4 text-center text-sm text-white border-t border-gray-700"
     >
       <p className="mb-2">
-        &copy; {new Date().getFullYear()} Kai Dombrowski – Entwickelt mit
-        Leidenschaft in Berlin.
+        &copy; {new Date().getFullYear()} Kai Dombrowski
       </p>
       <a
         href="/imprint.html"
